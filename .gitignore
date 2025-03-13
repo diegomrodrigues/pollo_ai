@@ -1,0 +1,79 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+.venv
+env/
+venv/
+ENV/
+
+# IDE related files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Project specific files
+# API keys and secrets
+.env
+.secrets
+*.key
+
+# Generated output from AI models
+output/
+drafts/
+generated/
+
+# Temporary files
+temp/
+tmp/
+
+# Log files
+*.log
+logs/
+
+# PDF files (uncomment if you want to exclude PDFs)
+# *.pdf
+
+# Generated JSON files (uncomment if you want to exclude all JSON)
+# *.json
+
+# Model caches
+.cache/
+.langchain/
+.langchain_cache/
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
