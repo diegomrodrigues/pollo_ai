@@ -91,7 +91,7 @@ prompt = load_chat_prompt_from_yaml(
    - Topics and subtopics are extracted and organized
    - Similar subtopics are consolidated
 
-![image](assets\topic_generation_graph.png)
+![image](./assets/topic_generation_graph.png)
 
 2. **Draft Generation**:
    - For each subtopic, a detailed draft is generated
@@ -103,9 +103,9 @@ prompt = load_chat_prompt_from_yaml(
      - Branch results are combined using an `operator.or_` reducer
      - State is isolated between branches to prevent conflicts
 
-![image](assets\draft_generation_graph.png)
+![image](./assets/draft_generation_graph.png)
 
-![image](assets\writer_agent_graph.png)
+![image](./assets/writer_agent_graph.png)
 
 3. **Parallel Processing Implementation**:
    - The `create_draft_writer` function builds a graph with dynamic branching:
