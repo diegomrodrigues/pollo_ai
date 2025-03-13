@@ -91,12 +91,42 @@ prompt = load_chat_prompt_from_yaml(
    - Topics and subtopics are extracted and organized
    - Similar subtopics are consolidated
 
+![image](assets\topic_generation_graph.png)
+
 2. **Draft Generation**:
    - For each subtopic, a detailed draft is generated
    - Drafts include proper mathematical notation and academic structure
-   - Multiple drafts can be generated in parallel
+   - Multiple drafts can be generated in parallel using LangGraph's map-reduce pattern
+   - The writer agent implements dynamic branching for parallel processing:
+     - Subtopics are batched according to a configurable `branching_factor`
+     - Each batch is processed concurrently using conditional edges and the `Send` API
+     - Branch results are combined using an `operator.or_` reducer
+     - State is isolated between branches to prevent conflicts
 
-3. **Output Organization**:
+![image](assets\draft_generation_graph.png)
+
+![image](assets\writer_agent_graph.png)
+
+3. **Parallel Processing Implementation**:
+   - The `create_draft_writer` function builds a graph with dynamic branching:
+     ```python
+     # Fan out for parallel processing
+     def branch_out(state: DraftWritingState):
+         return [f"subtopic_{i}" for i in range(len(state["current_batch"]))]
+     
+     # Dynamic branching based on batch
+     builder.add_conditional_edges(
+         "prepare_batch",
+         branch_out,
+         [f"subtopic_{i}" for i in range(branching_factor)]
+     )
+     ```
+   - Each parallel branch processes one subtopic independently
+   - Results from all branches are collected and merged in the `finalize_batch` node
+   - This parallel architecture significantly improves throughput when generating many drafts
+
+
+4. **Output Organization**:
    - Drafts are cleaned of any prompt artifacts
    - Appropriate filenames are generated
    - Content is saved in a directory structure reflecting the topic hierarchy
